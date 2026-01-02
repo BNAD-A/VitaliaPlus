@@ -1,0 +1,502 @@
+/* Base imports */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F2F1EC;
+    color: #2d3748;
+    line-height: 1.6;
+}
+
+/* Header - Same as other pages */
+.header {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #892D3F;
+}
+
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #892D3F;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #892D3F;
+    border-radius: 3px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #F2F1EC;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.btn-icon:hover {
+    background: #D6D7C9;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    background-color: #892D3F;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: #F2F1EC;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.user-profile img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #892D3F;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: #6e2432;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(137, 45, 63, 0.3);
+}
+
+/* Main Content */
+.main-content {
+    padding: 3rem 0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #892D3F;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: #6b7280;
+    font-size: 1.125rem;
+}
+
+/* Section */
+.ordonnances-section {
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 2rem;
+}
+
+.section-title svg {
+    color: #892D3F;
+}
+
+/* Ordonnances Grid */
+.ordonnances-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 2rem;
+}
+
+/* Ordonnance Card */
+.ordonnance-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 5px solid #10b981;
+}
+
+.ordonnance-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.ordonnance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #F2F1EC;
+}
+
+.doctor-info-small {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.doctor-info-small img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #F2F1EC;
+}
+
+.doctor-info-small h4 {
+    font-size: 1.125rem;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.doctor-info-small span {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.active {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.status-badge.expired {
+    background: rgba(107, 114, 128, 0.1);
+    color: #6b7280;
+}
+
+/* Ordonnance Date */
+.ordonnance-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.ordonnance-date svg {
+    color: #892D3F;
+}
+
+/* Medications List */
+.medications-list {
+    background: #F2F1EC;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.medications-list h5 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.medications-list ul {
+    list-style: none;
+}
+
+.medications-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #D6D7C9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.medications-list li:last-child {
+    border-bottom: none;
+}
+
+.med-name {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.med-dose {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Ordonnance Status */
+.ordonnance-status {
+    margin-bottom: 1.5rem;
+}
+
+.status-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+}
+
+.status-step.completed {
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.status-step.current {
+    background: rgba(251, 191, 36, 0.1);
+    font-weight: 600;
+}
+
+.step-icon {
+    font-size: 1.25rem;
+}
+
+.step-text {
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+/* Actions */
+.ordonnance-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary-small,
+.btn-secondary-small {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+}
+
+.btn-primary-small {
+    background: linear-gradient(135deg, #892D3F 0%, #6e2432 100%);
+    color: white;
+    flex: 1;
+}
+
+.btn-primary-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(137, 45, 63, 0.3);
+}
+
+.btn-secondary-small {
+    background: white;
+    color: #892D3F;
+    border: 2px solid #D6D7C9;
+}
+
+.btn-secondary-small:hover {
+    border-color: #892D3F;
+    background: #F2F1EC;
+}
+
+/* Ordonnances List (History) */
+.ordonnances-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ordonnance-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.ordonnance-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    gap: 2rem;
+}
+
+.item-info h4 {
+    color: #2d3748;
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+}
+
+.item-info p {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.btn-view {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: #892D3F;
+    border: 2px solid #D6D7C9;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-view:hover {
+    border-color: #892D3F;
+    background: #F2F1EC;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .ordonnances-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        display: none;
+    }
+    
+    .ordonnance-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .btn-view {
+        width: 100%;
+    }
+}

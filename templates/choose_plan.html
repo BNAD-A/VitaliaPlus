@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitalia+ - Choisissez votre plan</title>
+    <link rel="stylesheet" href="../css/choose_plan_modern.css">
+    <link rel="stylesheet" href="../css/header_functions.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="/frontend/img/logo.jpg" alt="Logo Vitalia+" class="logo-img">
+            </div>
+            <span class="logo-text">Vitalia+</span>
+        </div>
+
+        <!-- Header -->
+        <div class="header-section">
+            <h1 class="main-title">Choisissez votre plan</h1>
+            <p class="main-subtitle">Sélectionnez l'abonnement qui correspond le mieux à vos besoins</p>
+        </div>
+
+        <!-- Plans Grid -->
+        <div class="plans-container">
+            <!-- Plan Essai -->
+            <div class="plan-card" data-plan="Essai">
+                <div class="plan-badge essai">Recommandé pour débuter</div>
+                
+                <h2 class="plan-title">Plan Essai</h2>
+                
+                <div class="plan-price">
+                    <span class="price-amount">Gratuit</span>
+                    <span class="price-period">Premier trimestre offert</span>
+                </div>
+
+                <ul class="plan-features">
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Livraison gratuite</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>1 Téléconsultation gratuite</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Accès à l'application</span>
+                    </li>
+                    <li class="feature-item unavailable">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span>Analyses biologiques</span>
+                    </li>
+                    <li class="feature-item unavailable">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span>Conseils santé personnalisés</span>
+                    </li>
+                    <li class="feature-item unavailable">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span>Bracelet connecté</span>
+                    </li>
+                </ul>
+
+                <button class="btn-select" onclick="choosePlan('Essai')">
+                    Sélectionner
+                </button>
+            </div>
+
+            <!-- Plan Standard -->
+            <div class="plan-card" data-plan="Standard">
+                <h2 class="plan-title">Plan Standard</h2>
+                
+                <div class="plan-price">
+                    <span class="price-amount">199 DH</span>
+                    <span class="price-period">/Trimestre</span>
+                </div>
+                <p class="plan-description">Pour un suivi régulier</p>
+
+                <ul class="plan-features">
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Livraison (15 MAD/commande)</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Téléconsultation (99 MAD)</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Accès à l'application</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Analyses biologiques</span>
+                    </li>
+                    <li class="feature-item unavailable">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span>Conseils santé personnalisés</span>
+                    </li>
+                    <li class="feature-item unavailable">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span>Bracelet connecté</span>
+                    </li>
+                </ul>
+
+                <button class="btn-select" onclick="choosePlan('Standard')">
+                    Sélectionner
+                </button>
+            </div>
+
+            <!-- Plan Premium -->
+            <div class="plan-card featured" data-plan="Premium">
+                <div class="plan-badge premium">Le plus populaire</div>
+                
+                <h2 class="plan-title">Plan Premium</h2>
+                
+                <div class="plan-price">
+                    <span class="price-amount">499 DH</span>
+                    <span class="price-period">/Trimestre</span>
+                </div>
+                <p class="plan-description">Suivi complet et premium</p>
+
+                <ul class="plan-features">
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Livraison gratuite illimitée</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>1 Téléconsultation gratuite + 79 DH/suivante</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Accès à l'application</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Analyses biologiques</span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Conseils santé personnalisés</span>
+                        <span class="info-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <div class="info-popup">
+                                <h4>Conseils Santé Personnalisés</h4>
+                                <div class="popup-content">
+                                    <p><strong>Accompagnement par nos experts :</strong></p>
+                                    <ul>
+                                        <li>Plan nutritionnel adapté à votre pathologie</li>
+                                        <li>Exercices physiques recommandés</li>
+                                        <li>Gestion du stress et du sommeil</li>
+                                        <li>Conseils d'hygiène de vie</li>
+                                        <li>Rappels de prévention</li>
+                                    </ul>
+                                    <p class="popup-highlight"><strong>Fréquence :</strong> Mises à jour hebdomadaires</p>
+                                </div>
+                            </div>
+                        </span>
+                    </li>
+                    <li class="feature-item available">
+                        <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Bracelet connecté inclus</span>
+                        <span class="info-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <div class="info-popup">
+                                <h4>Bracelet Connecté Vitalia+</h4>
+                                <div class="popup-content">
+                                    <p><strong>Surveillance continue 24/7 :</strong></p>
+                                    <ul>
+                                        <li>Fréquence cardiaque en temps réel</li>
+                                        <li>Pression artérielle</li>
+                                        <li>Taux d'oxygène (SpO2)</li>
+                                        <li>Glycémie (pour diabétiques)</li>
+                                        <li>Qualité du sommeil</li>
+                                        <li>Nombre de pas et calories</li>
+                                    </ul>
+                                    <p class="popup-highlight"><strong>Valeur :</strong> 800 DH offerts</p>
+                                    <p class="popup-highlight"><strong>Synchronisation :</strong> Automatique avec l'app</p>
+                                    <span class="popup-badge">Alertes en cas d'anomalie</span>
+                                </div>
+                            </div>
+                        </span>
+                    </li>
+                </ul>
+
+                <button class="btn-select primary" onclick="choosePlan('Premium')">
+                    Sélectionner
+                </button>
+            </div>
+        </div>
+
+        <!-- Note -->
+        <div class="footer-note">
+            <p>* ESSAI GRATUIT POUR LES NOUVEAUX UTILISATEURS POUR LE PREMIER TRIMESTRE</p>
+        </div>
+    </div>
+
+    <script src="../js/choose_plan.js"></script>
+    <script src="../js/header_functions.js"></script>
+</body>
+</html>

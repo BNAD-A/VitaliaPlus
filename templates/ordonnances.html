@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitalia+ | Mes Ordonnances</title>
+    <link rel="stylesheet" href="../css/ordonnances.css">
+    <link rel="stylesheet" href="../css/header_functions.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="../img/logo.jpg" alt="Logo Vitalia+" class="logo-img">
+                    </div>
+                    <span class="logo-text">Vitalia+</span>
+                </div>
+                
+                <nav class="main-nav">
+                    <a href="dashboard_patient.html" class="nav-link">Accueil</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="mes_consultations.html" class="nav-link">Mes Consultations</a>
+                    <a href="ordonnances.html" class="nav-link active">Ordonnances</a>
+                    <a href="analyses.html" class="nav-link">Analyses</a>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="btn-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <button class="btn-icon notification">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="Profile">
+                        <span>Ahmed K.</span>
+                    </div>
+                    <button class="btn-logout" onclick="logout()" title="Se déconnecter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Déconnexion</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Mes Ordonnances</h1>
+                    <p class="page-subtitle">Consultez et gérez vos prescriptions médicales</p>
+                </div>
+            </div>
+
+            <!-- Ordonnances Actives -->
+            <section class="ordonnances-section">
+                <h2 class="section-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    Ordonnances actives
+                </h2>
+                
+                <div class="ordonnances-grid">
+                    <!-- Ordonnance 1 -->
+                    <div class="ordonnance-card active">
+                        <div class="ordonnance-header">
+                            <div class="doctor-info-small">
+                                <img src="https://via.placeholder.com/50" alt="Dr. Alami">
+                                <div>
+                                    <h4>Dr. Karim Alami</h4>
+                                    <span>Cardiologue</span>
+                                </div>
+                            </div>
+                            <span class="status-badge active">Active</span>
+                        </div>
+
+                        <div class="ordonnance-date">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>Délivrée le 10 Décembre 2024</span>
+                        </div>
+
+                        <div class="medications-list">
+                            <h5>Médicaments prescrits:</h5>
+                            <ul>
+                                <li>
+                                    <span class="med-name">Amlodipine 5mg</span>
+                                    <span class="med-dose">1 cp matin</span>
+                                </li>
+                                <li>
+                                    <span class="med-name">Enalapril 10mg</span>
+                                    <span class="med-dose">1 cp soir</span>
+                                </li>
+                                <li>
+                                    <span class="med-name">Aspirine 100mg</span>
+                                    <span class="med-dose">1 cp matin</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ordonnance-status">
+                            <div class="status-step completed">
+                                <span class="step-icon">✓</span>
+                                <span class="step-text">Transmise à Pharmacie Al Amal</span>
+                            </div>
+                            <div class="status-step completed">
+                                <span class="step-icon">✓</span>
+                                <span class="step-text">En préparation</span>
+                            </div>
+                            <div class="status-step current">
+                                <span class="step-icon">🚚</span>
+                                <span class="step-text">En livraison (arrive demain)</span>
+                            </div>
+                        </div>
+
+                        <div class="ordonnance-actions">
+                            <button class="btn-primary-small" onclick="trackDelivery('1')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                Suivre livraison
+                            </button>
+                            <button class="btn-secondary-small" onclick="downloadPrescription('1')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Télécharger PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Ordonnance 2 -->
+                    <div class="ordonnance-card active">
+                        <div class="ordonnance-header">
+                            <div class="doctor-info-small">
+                                <img src="https://via.placeholder.com/50" alt="Dr. Bennani">
+                                <div>
+                                    <h4>Dr. Sara Bennani</h4>
+                                    <span>Endocrinologue</span>
+                                </div>
+                            </div>
+                            <span class="status-badge active">Active</span>
+                        </div>
+
+                        <div class="ordonnance-date">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>Délivrée le 5 Décembre 2024</span>
+                        </div>
+
+                        <div class="medications-list">
+                            <h5>Médicaments prescrits:</h5>
+                            <ul>
+                                <li>
+                                    <span class="med-name">Metformine 850mg</span>
+                                    <span class="med-dose">1 cp × 3/jour</span>
+                                </li>
+                                <li>
+                                    <span class="med-name">Gliclazide 60mg</span>
+                                    <span class="med-dose">1 cp matin</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ordonnance-status">
+                            <div class="status-step completed">
+                                <span class="step-icon">✓</span>
+                                <span class="step-text">Transmise à Pharmacie Centrale</span>
+                            </div>
+                            <div class="status-step completed">
+                                <span class="step-icon">✓</span>
+                                <span class="step-text">Livrée</span>
+                            </div>
+                        </div>
+
+                        <div class="ordonnance-actions">
+                            <button class="btn-primary-small" onclick="reorder('2')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                Renouveler
+                            </button>
+                            <button class="btn-secondary-small" onclick="downloadPrescription('2')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Télécharger PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Historique -->
+            <section class="ordonnances-section">
+                <h2 class="section-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    Historique
+                </h2>
+                
+                <div class="ordonnances-list">
+                    <div class="ordonnance-item">
+                        <div class="item-header">
+                            <div class="item-info">
+                                <h4>Ordonnance du 28 Novembre 2024</h4>
+                                <p>Dr. Hassan Tazi - Généraliste</p>
+                            </div>
+                            <span class="status-badge expired">Expirée</span>
+                        </div>
+                        <button class="btn-view" onclick="viewPrescription('3')">Voir détails →</button>
+                    </div>
+
+                    <div class="ordonnance-item">
+                        <div class="item-header">
+                            <div class="item-info">
+                                <h4>Ordonnance du 15 Novembre 2024</h4>
+                                <p>Dr. Karim Alami - Cardiologue</p>
+                            </div>
+                            <span class="status-badge expired">Expirée</span>
+                        </div>
+                        <button class="btn-view" onclick="viewPrescription('4')">Voir détails →</button>
+                    </div>
+
+                    <div class="ordonnance-item">
+                        <div class="item-header">
+                            <div class="item-info">
+                                <h4>Ordonnance du 3 Novembre 2024</h4>
+                                <p>Dr. Sara Bennani - Endocrinologue</p>
+                            </div>
+                            <span class="status-badge expired">Expirée</span>
+                        </div>
+                        <button class="btn-view" onclick="viewPrescription('5')">Voir détails →</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/ordonnances.js"></script>
+    <script src="../js/header_functions.js"></script>
+</body>
+</html>

@@ -1,0 +1,826 @@
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F2F1EC;
+    min-height: 100vh;
+    padding: 2rem 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Cercles décoratifs du fond */
+.circle {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.4;
+    z-index: 0;
+}
+
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    background-color: #D6D7C9;
+    top: -100px;
+    left: -100px;
+}
+
+.circle-2 {
+    width: 250px;
+    height: 250px;
+    background-color: #69816D;
+    bottom: -80px;
+    right: -80px;
+}
+
+.triangle {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    background-color: #892D3F;
+    opacity: 0.4;
+    top: 50%;
+    right: -100px;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    z-index: 0;
+}
+
+/* Container principal */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* Card principale */
+.signup-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* En-tête */
+.header {
+    background: linear-gradient(135deg, #69816D 0%, #587461 100%);
+    padding: 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Barre de progression */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* Section titre */
+.title-section {
+    padding: 2rem 2rem 1rem;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #892D3F;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+/* Container du formulaire */
+.form-container {
+    padding: 1rem 2rem 2rem;
+}
+
+.step-content {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Section du formulaire */
+.form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: rgba(214, 215, 201, 0.15);
+    border-radius: 16px;
+    border: 2px solid #D6D7C9;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #892D3F;
+    margin-bottom: 1.25rem;
+}
+
+.section-title svg {
+    color: #892D3F;
+}
+
+/* Groupes de formulaire */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #D6D7C9;
+    border-radius: 12px;
+    background-color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #892D3F;
+    box-shadow: 0 0 0 3px rgba(137, 45, 63, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.form-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Section de sélection de plan */
+.plan-selection-section {
+    padding: 1rem 0;
+}
+
+.plans-grid-signup {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.plan-card-signup {
+    background: white;
+    border: 3px solid #D6D7C9;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.plan-card-signup:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: #892D3F;
+}
+
+.plan-card-signup.selected {
+    border-color: #892D3F;
+    border-width: 4px;
+    box-shadow: 0 8px 24px rgba(137, 45, 63, 0.2);
+    transform: translateY(-5px);
+}
+
+.plan-card-signup.featured {
+    border-color: #69816D;
+    box-shadow: 0 8px 24px rgba(105, 129, 109, 0.15);
+}
+
+.plan-badge-signup {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+}
+
+.plan-badge-signup.essai {
+    background: linear-gradient(135deg, #e8a5a5 0%, #d89090 100%);
+}
+
+.plan-badge-signup.premium {
+    background: linear-gradient(135deg, #69816D 0%, #587461 100%);
+}
+
+.plan-card-signup h3 {
+    font-size: 1.5rem;
+    color: #892D3F;
+    margin: 1rem 0 1rem;
+}
+
+.plan-price-signup {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.price-large {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.price-period {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.plan-subtitle {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.plan-features-list {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.plan-features-list li {
+    padding: 0.5rem 0;
+    color: #4a5568;
+    font-size: 0.875rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.plan-features-list li:last-child {
+    border-bottom: none;
+}
+
+.btn-select-plan {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    color: #892D3F;
+    border: 2px solid #892D3F;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-select-plan:hover {
+    background: #892D3F;
+    color: white;
+}
+
+.btn-select-plan.primary {
+    background: #892D3F;
+    color: white;
+}
+
+.btn-select-plan.primary:hover {
+    background: #6e2432;
+}
+
+/* Section conditions */
+.terms-section {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: rgba(105, 129, 109, 0.1);
+    border-radius: 12px;
+    border: 1px solid #69816D;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #892D3F;
+    flex-shrink: 0;
+}
+
+.link {
+    color: #892D3F;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Groupe de boutons */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    flex: 1;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: #892D3F;
+    color: white;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 8px 24px rgba(137, 45, 63, 0.3);
+    transform: translateY(-2px);
+    background-color: #6e2432;
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #6b7280;
+    border: 2px solid #D6D7C9;
+}
+
+.btn-secondary:hover {
+    border-color: #892D3F;
+    color: #892D3F;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .plans-grid-signup {
+        grid-template-columns: 1fr;
+    }
+    
+    .plan-card-signup.featured {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .header,
+    .title-section,
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .main-title {
+        font-size: 1.5rem;
+    }
+
+    .form-section {
+        padding: 1rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+    
+    .price-large {
+        font-size: 2rem;
+    }
+}
+/* Ajoutez ces styles à la fin de votre signup.css existant */
+
+/* Info Icon dans les features */
+.plan-features-list li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-icon-signup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #892D3F 0%, #6e2432 100%);
+    color: white;
+    border-radius: 50%;
+    cursor: help;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(137, 45, 63, 0.3);
+}
+
+.info-icon-signup:hover {
+    background: linear-gradient(135deg, #6e2432 0%, #892D3F 100%);
+    transform: scale(1.15);
+    box-shadow: 0 5px 15px rgba(137, 45, 63, 0.4);
+}
+
+.info-icon-signup svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Info Popup */
+.info-popup-signup {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    right: 0;
+    transform: translateY(10px) scale(0.9);
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    border: 2px solid #892D3F;
+}
+
+.info-popup-signup::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #892D3F;
+}
+
+.info-popup-signup::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 17px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid white;
+}
+
+.info-icon-signup:hover .info-popup-signup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.info-popup-signup h4 {
+    color: #892D3F;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #F2F1EC;
+    font-weight: 700;
+}
+
+.popup-content-signup {
+    color: #4a5568;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.popup-content-signup p {
+    margin-bottom: 0.75rem;
+}
+
+.popup-content-signup ul {
+    list-style: none;
+    margin: 0.75rem 0;
+    padding: 0;
+}
+
+.popup-content-signup li {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    display: block;
+}
+
+.popup-content-signup li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.popup-highlight-signup {
+    background: rgba(137, 45, 63, 0.05);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    display: block;
+}
+
+.popup-badge-signup {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 0.3rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+/* Responsive pour les popups */
+@media (max-width: 768px) {
+    .info-popup-signup {
+        width: 280px;
+        left: auto;
+        right: -10px;
+    }
+    
+    .info-popup-signup::before,
+    .info-popup-signup::after {
+        right: 20px;
+    }
+}
+
+/* Ajoutez ces styles à la fin de votre signup.css existant */
+
+/* Info Icon dans les features */
+.plan-features-list li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-icon-signup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #892D3F 0%, #6e2432 100%);
+    color: white;
+    border-radius: 50%;
+    cursor: help;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(137, 45, 63, 0.3);
+}
+
+.info-icon-signup:hover {
+    background: linear-gradient(135deg, #6e2432 0%, #892D3F 100%);
+    transform: scale(1.15);
+    box-shadow: 0 5px 15px rgba(137, 45, 63, 0.4);
+}
+
+.info-icon-signup svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Info Popup */
+.info-popup-signup {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    right: 0;
+    transform: translateY(10px) scale(0.9);
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    border: 2px solid #892D3F;
+}
+
+.info-popup-signup::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #892D3F;
+}
+
+.info-popup-signup::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 17px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid white;
+}
+
+.info-icon-signup:hover .info-popup-signup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.info-popup-signup h4 {
+    color: #892D3F;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #F2F1EC;
+    font-weight: 700;
+}
+
+.popup-content-signup {
+    color: #4a5568;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.popup-content-signup p {
+    margin-bottom: 0.75rem;
+}
+
+.popup-content-signup ul {
+    list-style: none;
+    margin: 0.75rem 0;
+    padding: 0;
+}
+
+.popup-content-signup li {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    display: block;
+}
+
+.popup-content-signup li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.popup-highlight-signup {
+    background: rgba(137, 45, 63, 0.05);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    display: block;
+}
+
+.popup-badge-signup {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 0.3rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+/* Responsive pour les popups */
+@media (max-width: 768px) {
+    .info-popup-signup {
+        width: 280px;
+        left: auto;
+        right: -10px;
+    }
+    
+    .info-popup-signup::before,
+    .info-popup-signup::after {
+        right: 20px;
+    }
+}

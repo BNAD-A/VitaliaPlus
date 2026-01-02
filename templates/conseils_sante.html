@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitalia+ | Conseils Santé Personnalisés</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F2F1EC;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container-fluid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #892D3F;
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #892D3F;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            background: #6e2432;
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #892D3F;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #6b7280;
+            font-size: 1.125rem;
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 70vh;
+            max-height: 700px;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #892D3F 0%, #6e2432 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .chat-header h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-header p {
+            opacity: 0.9;
+            font-size: 0.875rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            max-width: 80%;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .message.assistant .message-avatar {
+            background: linear-gradient(135deg, #69816D 0%, #587461 100%);
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #892D3F 0%, #6e2432 100%);
+            color: white;
+        }
+
+        .message-content {
+            background: #F2F1EC;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            line-height: 1.6;
+        }
+
+        .message.user .message-content {
+            background: #892D3F;
+            color: white;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: #F2F1EC;
+            border-radius: 16px;
+            max-width: fit-content;
+        }
+
+        .typing-indicator.active {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #892D3F;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .chat-input-container {
+            padding: 1.5rem;
+            background: white;
+            border-top: 2px solid #F2F1EC;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid #D6D7C9;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #892D3F;
+        }
+
+        .btn-send {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #892D3F 0%, #6e2432 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-send:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(137, 45, 63, 0.3);
+        }
+
+        .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .suggestion-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .suggestion-card:hover {
+            transform: translateY(-4px);
+            border-color: #892D3F;
+            box-shadow: 0 8px 24px rgba(137, 45, 63, 0.15);
+        }
+
+        .suggestion-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        .suggestion-text {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                height: calc(100vh - 200px);
+            }
+            .suggestions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container-fluid">
+            <div class="header-content">
+                <div class="logo" onclick="window.location.href='dashboard_patient.html'">
+                    <span class="logo-text">Vitalia+</span>
+                </div>
+                <a href="dashboard_patient.html" class="btn-back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Retour au Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">🩺 Conseils Santé Personnalisés</h1>
+            <p class="page-subtitle">Votre assistant santé intelligent alimenté par l'IA</p>
+            <span class="premium-badge">✨ Fonctionnalité Premium</span>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="suggestions" id="suggestions">
+            <div class="suggestion-card" onclick="sendSuggestion('Comment améliorer mon sommeil ?')">
+                <div class="suggestion-icon">😴</div>
+                <div class="suggestion-title">Améliorer le sommeil</div>
+                <div class="suggestion-text">Conseils pour mieux dormir</div>
+            </div>
+            <div class="suggestion-card" onclick="sendSuggestion('Exercices pour rester en forme ?')">
+                <div class="suggestion-icon">💪</div>
+                <div class="suggestion-title">Programme d'exercices</div>
+                <div class="suggestion-text">Activités physiques adaptées</div>
+            </div>
+            <div class="suggestion-card" onclick="sendSuggestion('Plan nutritionnel équilibré ?')">
+                <div class="suggestion-icon">🥗</div>
+                <div class="suggestion-title">Nutrition équilibrée</div>
+                <div class="suggestion-text">Plans alimentaires</div>
+            </div>
+            <div class="suggestion-card" onclick="sendSuggestion('Comment gérer mon stress ?')">
+                <div class="suggestion-icon">🧘</div>
+                <div class="suggestion-title">Gestion du stress</div>
+                <div class="suggestion-text">Techniques de relaxation</div>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>💬 Discussion avec votre Assistant Santé</h3>
+                <p>Posez vos questions sur la nutrition, l'exercice, le bien-être</p>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">
+                    <div class="message-avatar">🩺</div>
+                    <div class="message-content">
+                        Bonjour ! Je suis votre assistant santé. Je peux vous aider avec :<br><br>
+                        • Plans nutritionnels<br>
+                        • Programmes d'exercices<br>
+                        • Amélioration du sommeil<br>
+                        • Gestion du stress<br>
+                        • Conseils d'hygiène de vie<br><br>
+                        Comment puis-je vous aider ?
+                    </div>
+                </div>
+                <div class="message assistant typing-indicator" id="typingIndicator">
+                    <div class="message-avatar">🩺</div>
+                    <div style="display: flex; gap: 0.5rem; padding: 1rem 1.5rem; background: #F2F1EC; border-radius: 16px;">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <input 
+                        type="text" 
+                        class="chat-input" 
+                        id="chatInput" 
+                        placeholder="Posez votre question santé..."
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button class="btn-send" id="sendBtn" onclick="sendMessage()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const GROQ_API_KEY = 'Replace-me';
+        const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+        let conversationHistory = [];
+
+        function checkPremiumAccess() {
+            const userPlan = localStorage.getItem('userPlan');
+            if (userPlan) {
+                const plan = JSON.parse(userPlan);
+                if (plan.name !== 'Premium') {
+                    window.location.href = 'choose_plan.html';
+                }
+            } else {
+                window.location.href = 'choose_plan.html';
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            input.disabled = true;
+            document.getElementById('sendBtn').disabled = true;
+            document.getElementById('suggestions').style.display = 'none';
+
+            addMessage(message, 'user');
+            input.value = '';
+            showTypingIndicator();
+
+            conversationHistory.push({
+                role: 'user',
+                content: message
+            });
+
+            try {
+                const response = await fetch(GROQ_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${GROQ_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: 'llama-3.3-70b-versatile',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `Tu es un assistant santé pour Vitalia+, une plateforme de télémédecine.
+
+RÈGLES IMPORTANTES :
+- Réponds de manière CONCISE et PRÉCISE (maximum 150 mots)
+- Va droit au but, pas de discours long
+- Utilise des listes à puces pour structurer
+- Un conseil = 1-2 phrases maximum
+- Sois pratique et actionnable
+- Pas de formules de politesse longues
+- Si question médicale sérieuse : recommande de consulter via Vitalia+
+
+DOMAINES : nutrition, exercice, sommeil, stress, hygiène de vie
+
+Exemple de réponse attendue :
+"Pour mieux dormir :
+• Coucher à heures fixes
+• Éviter écrans 1h avant
+• Température fraîche (18-19°C)
+• Exercice le matin
+Besoin d'un suivi ? Consultez nos médecins."`
+                            },
+                            ...conversationHistory
+                        ],
+                        temperature: 0.5,
+                        max_tokens: 300
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erreur API');
+                }
+
+                const data = await response.json();
+                const assistantMessage = data.choices[0].message.content;
+
+                conversationHistory.push({
+                    role: 'assistant',
+                    content: assistantMessage
+                });
+
+                hideTypingIndicator();
+                addMessage(assistantMessage, 'assistant');
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                hideTypingIndicator();
+                showError('Erreur de connexion. Veuillez réessayer.');
+            }
+
+            input.disabled = false;
+            document.getElementById('sendBtn').disabled = false;
+            input.focus();
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingIndicator = document.getElementById('typingIndicator');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'user' ? '👤' : '🩺';
+
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.innerHTML = text.replace(/\n/g, '<br>');
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+
+            messagesContainer.insertBefore(messageDiv, typingIndicator);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').classList.add('active');
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').classList.remove('active');
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('active');
+            setTimeout(() => {
+                errorDiv.classList.remove('active');
+            }, 5000);
+        }
+
+        function sendSuggestion(text) {
+            document.getElementById('chatInput').value = text;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkPremiumAccess();
+        });
+    </script>
+</body>
+</html>

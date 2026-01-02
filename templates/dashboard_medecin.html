@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vitalia+ | Espace Médecin</title>
+  <link rel="stylesheet" href="../css/dashboard_medecin.css" />
+
+  <!-- QRCode.js -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container-fluid">
+      <div class="header-content">
+        <div class="logo" onclick="goToDashboard()" style="cursor: pointer;">
+          <div class="logo-icon">
+            <img src="../img/logo.jpg" alt="Logo Vitalia+" class="logo-img">
+          </div>
+          <span class="logo-text">Vitalia+</span>
+        </div>
+
+        <div class="doctor-badge">👨‍⚕️ Espace Médecin</div>
+
+        <div class="header-actions">
+          <div class="user-profile">
+            <img src="https://via.placeholder.com/40" alt="Dr. Alami">
+            <span>Dr. Karim Alami</span>
+          </div>
+
+          <button class="btn-logout" onclick="logout()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Déconnexion</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="welcome-section">
+        <h1 class="welcome-title">Bonjour Dr. Alami 👋</h1>
+        <p class="welcome-subtitle" id="appointmentCount"></p>
+      </section>
+
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('upcoming')">
+          À venir <span class="tab-count" id="upcomingCount">0</span>
+        </button>
+        <button class="tab" onclick="switchTab('past')">
+          Passées <span class="tab-count" id="pastCount">0</span>
+        </button>
+      </div>
+
+      <div class="tab-panel active" id="upcoming-panel">
+        <div class="filter-bar">
+          <input type="text" placeholder="🔍 Rechercher un patient..." id="searchInput">
+          <input type="date" id="dateFilter">
+        </div>
+        <div class="appointments-grid" id="upcomingGrid"></div>
+      </div>
+
+      <div class="tab-panel" id="past-panel">
+        <div class="filter-bar">
+          <input type="text" placeholder="🔍 Rechercher par nom de patient..." id="searchPastInput">
+          <input type="date" id="dateFilterPast">
+        </div>
+        <div class="appointments-grid" id="pastGrid"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================= -->
+  <!-- MODAL ORDONNANCE (FORM)   -->
+  <!-- ========================= -->
+  <div class="modal-overlay" id="ordonnanceModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>📝 Nouvelle Ordonnance</h2>
+        <button class="btn-close" onclick="closeOrdonnance()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-patient-info">
+          <img src="" alt="Patient" id="modalPatientAvatar">
+          <div>
+            <h3 class="patient-name" id="modalPatientName"></h3>
+            <p class="patient-meta" id="modalPatientAge"></p>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            Médicaments prescrits
+          </h3>
+
+          <div class="medications-list" id="medicationsList"></div>
+
+          <button class="btn-add-med" onclick="addMedication()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Ajouter un médicament
+          </button>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="renouvellement">
+            <span>🔄 <strong>Renouvellement</strong> - Traitement chronique à renouveler</span>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" id="demandeAnalyse">
+            <span>🔬 <strong>Demande d'analyse</strong> - Prescrire des analyses biologiques</span>
+          </label>
+        </div>
+
+        <div class="form-section" id="analysesSection" style="display:none;">
+          <h3>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11l3 3L22 4"></path>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Analyses biologiques
+          </h3>
+
+          <div class="analyses-presets" id="analysesPresets">
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="Glycémie à jeun">Glycémie à jeun</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="HbA1c">HbA1c</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="Bilan lipidique">Bilan lipidique</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="Créatininémie">Créatininémie</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="Urée sanguine">Urée sanguine</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="TSH">TSH</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="T3/T4">T3/T4</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="NFS">NFS</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="CRP">CRP</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="Transaminases">Transaminases</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="Ionogramme">Ionogramme</div>
+            <div class="analyse-preset" onclick="toggleAnalyse(this)" data-value="Vitamine D">Vitamine D</div>
+          </div>
+
+          <div class="form-group">
+            <label>Autres analyses (non listées ci-dessus)</label>
+            <textarea id="analysesCustom"
+              placeholder="Ex: Échographie abdominale, ECG, etc..."
+              style="width: 100%; min-height: 80px; padding: 1rem; border: 2px solid #D6D7C9; border-radius: 10px;"></textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>📌 Notes complémentaires</h3>
+          <div class="form-group">
+            <textarea id="notesComplementaires"
+              placeholder="Recommandations, conseils, précautions..."
+              style="width: 100%; min-height: 80px; padding: 1rem; border: 2px solid #D6D7C9; border-radius: 10px;"></textarea>
+          </div>
+        </div>
+
+        <!-- SIGNATURE ÉLECTRONIQUE -->
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="signatureElectronique">
+            <span>✍️ <strong>Signature électronique</strong> – Je certifie cette ordonnance</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeOrdonnance()">Annuler</button>
+        <button class="btn-submit" onclick="submitOrdonnance()">✓ Valider et envoyer l'ordonnance</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================= -->
+  <!-- MODAL PREVIEW (APERÇU)    -->
+  <!-- ========================= -->
+  <div class="modal-overlay" id="previewModal">
+    <div class="modal preview-modal">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <h2 style="margin:0;">Aperçu avant envoi</h2>
+        </div>
+
+        <!-- impression supprimée -->
+        <div class="preview-tools">
+          <button type="button" onclick="previewZoom(-0.1)">−</button>
+          <button type="button" onclick="previewZoom(0.1)">+</button>
+          <button class="btn-close" onclick="closePreview()">×</button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="ordonnance-paper" id="ordonnancePaper"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="backToEdit()">✏️ Modifier</button>
+        <button class="btn-submit" onclick="confirmAndSend()">🚀 Confirmer et Envoyer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================= -->
+  <!-- MODAL DOSSIER             -->
+  <!-- ========================= -->
+  <div class="modal-overlay" id="dossierModal">
+    <div class="modal">
+      <div class="modal-header dossier">
+        <h2>📋 Dossier Médical</h2>
+        <button class="btn-close" onclick="closeDossier()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-patient-info">
+          <img src="" alt="Patient" id="dossierPatientAvatar">
+          <div>
+            <h3 class="patient-name" id="dossierPatientName"></h3>
+            <p class="patient-meta" id="dossierPatientInfo"></p>
+          </div>
+        </div>
+
+        <div class="dossier-section">
+          <h3>👤 Informations générales</h3>
+          <div class="dossier-item">
+            <div class="dossier-item-header"><strong>Pathologie chronique</strong></div>
+            <p id="dossierPathologie"></p>
+          </div>
+          <div class="dossier-item">
+            <div class="dossier-item-header"><strong>Allergies connues</strong></div>
+            <p>Pénicilline, Aspirine</p>
+          </div>
+        </div>
+
+        <div class="dossier-section">
+          <h3>🩺 Consultations récentes</h3>
+          <div class="dossier-item">
+            <div class="dossier-item-header">
+              <span class="dossier-date">10 Décembre 2024</span>
+              <span class="dossier-type">Suivi</span>
+            </div>
+            <p><strong>Motif:</strong> Contrôle glycémie</p>
+          </div>
+        </div>
+
+        <div class="dossier-section">
+          <h3>📊 Constantes vitales</h3>
+          <div class="health-metrics">
+            <div class="metric"><span class="metric-label">Poids</span><span class="metric-value">82 kg</span></div>
+            <div class="metric"><span class="metric-label">Tension</span><span class="metric-value">135/85</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeDossier()">Fermer</button>
+        <button class="btn-submit">📄 Exporter le dossier</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/dashboard_medecin.js"></script>
+</body>
+</html>

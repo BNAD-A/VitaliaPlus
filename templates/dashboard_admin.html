@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vitalia+ | Dashboard Admin</title>
+
+  <!-- Même thème que ton projet -->
+  <link rel="stylesheet" href="../css/header_functions.css">
+  <link rel="stylesheet" href="../css/dashboard_admin.css">
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container-fluid">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">
+            <!-- IMPORTANT: chemin relatif depuis templates -->
+            <img src="../img/logo.jpg" alt="Logo Vitalia+" class="logo-img">
+          </div>
+          <span class="logo-text">Vitalia+</span>
+          <span class="user-type">Admin</span>
+        </div>
+
+        <nav class="main-nav">
+          <a href="dashboard_admin.html" class="nav-link active">Dashboard</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="btn-icon notification" type="button" id="notifBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-badge" id="notifCount">0</span>
+          </button>
+
+          <div class="user-profile">
+            <img src="https://via.placeholder.com/40" alt="Profile">
+            <span id="adminName">Admin Vitalia+</span>
+          </div>
+
+          <button class="btn-logout" type="button" id="logoutBtn" title="Se déconnecter">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Déconnexion</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- HERO -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">Dashboard Admin – Équipe Vitalia+</h1>
+          <p class="hero-subtitle">Gestion des utilisateurs, abonnements, ordonnances, consultations, pharmacies, laboratoires et statistiques globales.</p>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number" id="kpiPatients">0</div>
+              <div class="stat-label">Patients actifs</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="kpiRx">0</div>
+              <div class="stat-label">Ordonnances</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="kpiConsults">0</div>
+              <div class="stat-label">Consultations/jour</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="kpiPartners">0</div>
+              <div class="stat-label">Pharmacies + Labos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <div class="hero-card">
+            <div class="card-badge">Vue globale</div>
+            <h3>Activité</h3>
+            <p id="heroMini">Synchronisée en localStorage</p>
+            <div class="mini-row">
+              <span>Dernière MAJ</span>
+              <strong id="lastUpdate">—</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAYOUT: Sidebar + Content -->
+      <section class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <button class="side-link active" data-tab="users">A. Gestion utilisateurs</button>
+          <button class="side-link" data-tab="subs">B. Gestion abonnements</button>
+          <button class="side-link" data-tab="rx">C. Gestion ordonnances</button>
+          <button class="side-link" data-tab="consults">D. Gestion consultations</button>
+          <button class="side-link" data-tab="pharmacies">E. Gestion pharmacies</button>
+          <button class="side-link" data-tab="labs">F. Gestion laboratoires</button>
+          <button class="side-link" data-tab="stats">G. Statistiques globales</button>
+
+          <div class="side-box">
+            <h4>Actions rapides</h4>
+            <button class="btn-secondary w100" id="seedBtn" type="button">Réinitialiser les données (demo)</button>
+          </div>
+        </aside>
+
+        <!-- Content -->
+        <section class="panel">
+
+          <!-- A. USERS -->
+          <div class="tab active" id="tab-users">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">A. Gestion utilisateurs</h2>
+                <p class="panel-subtitle">Créer médecins / pharmacies / laboratoires, gérer patients, activer / désactiver.</p>
+              </div>
+
+              <div class="panel-actions">
+                <button class="btn-primary" type="button" id="btnCreateUser">+ Créer un compte</button>
+              </div>
+            </div>
+
+            <div class="filters">
+              <div class="filters-left">
+                <button class="chip active" data-user-filter="ALL">Tous</button>
+                <button class="chip" data-user-filter="patient">Patients</button>
+                <button class="chip" data-user-filter="medecin">Médecins</button>
+                <button class="chip" data-user-filter="pharmacie">Pharmacies</button>
+                <button class="chip" data-user-filter="laboratoire">Laboratoires</button>
+              </div>
+
+              <div class="filters-right">
+                <div class="search-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                  <input type="text" id="userSearch" placeholder="Rechercher nom / email / rôle..." />
+                </div>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- B. SUBSCRIPTIONS -->
+          <div class="tab" id="tab-subs">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">B. Gestion abonnements</h2>
+                <p class="panel-subtitle">Voir plans choisis, modifier / activer / suspendre.</p>
+              </div>
+            </div>
+
+            <div class="filters">
+              <div class="filters-left">
+                <button class="chip active" data-sub-filter="ALL">Tous</button>
+                <button class="chip" data-sub-filter="Essai">Essai</button>
+                <button class="chip" data-sub-filter="Standard">Standard</button>
+                <button class="chip" data-sub-filter="Premium">Premium</button>
+              </div>
+
+              <div class="filters-right">
+                <div class="search-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                  <input type="text" id="subSearch" placeholder="Rechercher patient / email..." />
+                </div>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Email</th>
+                    <th>Plan</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="subsTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- C. RX -->
+          <div class="tab" id="tab-rx">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">C. Gestion ordonnances</h2>
+                <p class="panel-subtitle">Liste, validation manuelle si problème, filtrage (statut / médecin / pharmacie).</p>
+              </div>
+            </div>
+
+            <div class="filters">
+              <div class="filters-left">
+                <button class="chip active" data-rx-filter="ALL">Toutes</button>
+                <button class="chip" data-rx-filter="Reçue">Reçues</button>
+                <button class="chip" data-rx-filter="En préparation">En préparation</button>
+                <button class="chip" data-rx-filter="Prête">Prêtes</button>
+                <button class="chip" data-rx-filter="En livraison">En livraison</button>
+                <button class="chip" data-rx-filter="Problème">Problème</button>
+              </div>
+
+              <div class="filters-right">
+                <div class="search-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                  </svg>
+                  <input type="text" id="rxSearch" placeholder="Rechercher ID / patient / médecin / pharmacie..." />
+                </div>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Patient</th>
+                    <th>Médecin</th>
+                    <th>Pharmacie</th>
+                    <th>Statut</th>
+                    <th>Signal</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="rxTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- D. CONSULTS -->
+          <div class="tab" id="tab-consults">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">D. Gestion consultations</h2>
+                <p class="panel-subtitle">Suivi RDV, nombre consultations / médecin.</p>
+              </div>
+            </div>
+
+            <div class="two-cols">
+              <div class="table-card">
+                <div class="card-head">
+                  <h3>Rendez-vous (extrait)</h3>
+                  <p>Liste des RDV (demo)</p>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Patient</th>
+                      <th>Médecin</th>
+                      <th>Statut</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="consultsTbody"></tbody>
+                </table>
+              </div>
+
+              <div class="table-card">
+                <div class="card-head">
+                  <h3>Consultations / médecin</h3>
+                  <p>Compteur automatique</p>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Médecin</th>
+                      <th>Total</th>
+                      <th>Aujourd’hui</th>
+                    </tr>
+                  </thead>
+                  <tbody id="consultsByDoctorTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- E. PHARMACIES -->
+          <div class="tab" id="tab-pharmacies">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">E. Gestion pharmacies</h2>
+                <p class="panel-subtitle">Activité, statuts commandes, commissions (option future).</p>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Pharmacie</th>
+                    <th>Email</th>
+                    <th>Ordonnances reçues</th>
+                    <th>En préparation</th>
+                    <th>En livraison</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="pharmTbody"></tbody>
+              </table>
+            </div>
+
+            <div class="note">
+              <strong>Option future:</strong> calcul commissions (ex: % sur livraisons).
+            </div>
+          </div>
+
+          <!-- F. LABS -->
+          <div class="tab" id="tab-labs">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">F. Gestion laboratoires</h2>
+                <p class="panel-subtitle">Demandes d’analyses, résultats disponibles.</p>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Laboratoire</th>
+                    <th>Email</th>
+                    <th>Demandes</th>
+                    <th>En cours</th>
+                    <th>Résultats dispo</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="labsTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- G. STATS -->
+          <div class="tab" id="tab-stats">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">G. Statistiques globales</h2>
+                <p class="panel-subtitle">Patients actifs, ordonnances, consultations/jour, activité pharmacies/labos.</p>
+              </div>
+            </div>
+
+            <div class="stats-grid big">
+              <div class="stat-card">
+                <div class="stat-label">Patients actifs</div>
+                <div class="stat-number" id="gPatients">0</div>
+                <div class="stat-hint">Comptes patients activés</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Ordonnances</div>
+                <div class="stat-number" id="gRx">0</div>
+                <div class="stat-hint">Toutes sources</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Consultations aujourd’hui</div>
+                <div class="stat-number" id="gConsultsToday">0</div>
+                <div class="stat-hint">RDV du jour</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Activité partenaires</div>
+                <div class="stat-number" id="gPartners">0</div>
+                <div class="stat-hint">Pharmacies + Labos</div>
+              </div>
+            </div>
+
+            <div class="two-cols">
+              <div class="table-card">
+                <div class="card-head">
+                  <h3>Répartition ordonnances (statuts)</h3>
+                  <p>Comptage rapide</p>
+                </div>
+                <ul class="stat-list" id="rxStatsList"></ul>
+              </div>
+
+              <div class="table-card">
+                <div class="card-head">
+                  <h3>Répartition abonnements</h3>
+                  <p>Plans patients</p>
+                </div>
+                <ul class="stat-list" id="subStatsList"></ul>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <!-- MODAL Create user -->
+  <div class="modal" id="userModal" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-head">
+        <h3 id="userModalTitle">Créer un compte</h3>
+        <button class="modal-close" type="button" id="userModalClose">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="grid-2">
+          <div class="field">
+            <label>Nom</label>
+            <input type="text" id="mName" placeholder="Ex: Dr. Karim Alami">
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="mEmail" placeholder="ex: karim@medecin.vitalia">
+          </div>
+          <div class="field">
+            <label>Rôle</label>
+            <select id="mRole">
+              <option value="patient">Patient</option>
+              <option value="medecin">Médecin</option>
+              <option value="pharmacie">Pharmacie</option>
+              <option value="laboratoire">Laboratoire</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Statut</label>
+            <select id="mActive">
+              <option value="true">Actif</option>
+              <option value="false">Désactivé</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Mot de passe (demo)</label>
+          <input type="text" id="mPassword" placeholder="ex: 1234">
+          <div class="hint">Demo: stocké en clair dans localStorage (à remplacer plus tard par un backend).</div>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn-secondary" type="button" id="userModalCancel">Annuler</button>
+        <button class="btn-primary" type="button" id="userModalSave">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/dashboard_admin.js"></script>
+  <script src="../js/header_functions.js"></script>
+</body>
+</html>

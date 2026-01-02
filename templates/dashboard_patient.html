@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitalia+ | Dashboard Patient</title>
+    <link rel="stylesheet" href="../css/dashboard_patient.css">
+    <link rel="stylesheet" href="../css/header_functions.css">
+    <link rel="stylesheet" href="../css/chat_widget.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container-fluid">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="../img/logo.jpg" alt="Logo Vitalia+" class="logo-img">
+                    </div>
+                    <span class="logo-text">Vitalia+</span>
+                </div>
+
+                <nav class="main-nav">
+                    <a href="dashboard_patient.html" class="nav-link active">Accueil</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="mes_consultations.html" class="nav-link">Mes Consultations</a>
+                    <a href="ordonnances.html" class="nav-link">Ordonnances</a>
+                    <a href="analyses.html" class="nav-link" id="navAnalyses">Analyses</a>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="btn-icon" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+
+                    <button class="btn-icon notification" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="Profile">
+                        <span id="userName">Patient</span>
+                    </div>
+
+                    <button class="btn-logout" onclick="logout()" title="Se déconnecter" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Déconnexion</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+
+            <!-- HERO -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title" id="heroTitle">Bienvenue sur votre espace santé</h1>
+                    <p class="hero-subtitle" id="heroSubtitle">Gérez vos consultations, traitements et suivez votre santé en temps réel</p>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="statConsultations">0</div>
+                            <div class="stat-label">Consultations</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="statOrdonnances">0</div>
+                            <div class="stat-label">Ordonnances actives</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="statSuivi">0%</div>
+                            <div class="stat-label">Suivi traitement</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <div class="hero-card">
+                        <div class="card-badge" id="planBadge">Mon abonnement</div>
+                        <h3 id="planName">Plan Essai</h3>
+                        <p id="planDesc">Accès limité</p>
+
+                        <button id="btnUpgradePlan" class="btn-change-plan" onclick="window.location.href='choose_plan.html'" type="button">
+                            <span>Passer au forfait supérieur</span>
+                            <svg class="btn-change-plan__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12a9 9 0 1 1-2.64-6.36"></path>
+                                <polyline points="21 3 21 9 15 9"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES RAPIDES -->
+            <section class="quick-actions">
+                <h2 class="section-title">Services rapides</h2>
+                <div class="services-grid">
+
+                    <!-- 1. Téléconsultation -->
+                    <div class="service-card" onclick="openConsultation()">
+                        <div class="service-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h3>Téléconsultation</h3>
+                        <p id="teleconsultText">Consultez un médecin en ligne</p>
+                        <button class="btn-arrow" type="button">→</button>
+                    </div>
+
+                    <!-- 2. Mes ordonnances -->
+                    <div class="service-card" onclick="window.location.href='ordonnances.html'">
+                        <div class="service-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                        </div>
+                        <h3>Mes ordonnances</h3>
+                        <p>Gérez vos prescriptions</p>
+                        <button class="btn-arrow" type="button">→</button>
+                    </div>
+
+                    <!-- 3. Analyses biologiques -->
+                    <div class="service-card" id="cardAnalyses" onclick="window.location.href='analyses.html'">
+                        <div class="service-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
+                        </div>
+                        <h3>Analyses biologiques</h3>
+                        <p>Résultats et suivi</p>
+                        <button class="btn-arrow" type="button">→</button>
+                    </div>
+
+                    <!-- 4. Livraison médicaments -->
+                    <div class="service-card" onclick="window.location.href='services.html'">
+                        <div class="service-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                        </div>
+                        <h3>Livraison médicaments</h3>
+                        <p>Suivez vos commandes</p>
+                        <button class="btn-arrow" type="button">→</button>
+                    </div>
+
+                    <!-- 5. ✨ NOUVEAU : Conseils Santé IA -->
+                    <div class="service-card" onclick="openConseilsSante()">
+                        <div class="service-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </div>
+                        <h3>Conseils Santé IA</h3>
+                        <p>Assistant santé personnalisé</p>
+                        <button class="btn-arrow" type="button">→</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- MEDECINS -->
+            <section class="doctors-section">
+                <div class="section-header">
+                    <h2 class="section-title">Nos médecins disponibles</h2>
+                    <button class="btn-secondary" type="button">Voir tous</button>
+                </div>
+
+                <div class="doctors-grid">
+                    <div class="doctor-card">
+                        <img src="https://via.placeholder.com/120" alt="Dr. Alami">
+                        <div class="doctor-badge">Cardiologue</div>
+                        <h3>Dr. Karim Alami</h3>
+                        <div class="doctor-rating">★★★★★ (4.9)</div>
+                        <p>15 ans d'expérience</p>
+                        <button class="btn-consult" type="button">Consulter</button>
+                    </div>
+
+                    <div class="doctor-card">
+                        <img src="https://via.placeholder.com/120" alt="Dr. Bennani">
+                        <div class="doctor-badge">Endocrinologue</div>
+                        <h3>Dr. Sara Bennani</h3>
+                        <div class="doctor-rating">★★★★★ (4.8)</div>
+                        <p>12 ans d'expérience</p>
+                        <button class="btn-consult" type="button">Consulter</button>
+                    </div>
+
+                    <div class="doctor-card">
+                        <img src="https://via.placeholder.com/120" alt="Dr. Tazi">
+                        <div class="doctor-badge">Généraliste</div>
+                        <h3>Dr. Hassan Tazi</h3>
+                        <div class="doctor-rating">★★★★☆ (4.7)</div>
+                        <p>20 ans d'expérience</p>
+                        <button class="btn-consult" type="button">Consulter</button>
+                    </div>
+
+                    <div class="doctor-card">
+                        <img src="https://via.placeholder.com/120" alt="Dr. Fassi">
+                        <div class="doctor-badge">Pneumologue</div>
+                        <h3>Dr. Amina Fassi</h3>
+                        <div class="doctor-rating">★★★★★ (5.0)</div>
+                        <p>10 ans d'expérience</p>
+                        <button class="btn-consult" type="button">Consulter</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DONNEES SANTE -->
+            <section class="health-data-section">
+                <h2 class="section-title">Mes données de santé en temps réel</h2>
+
+                <div class="health-grid">
+                    <div class="health-card">
+                        <div class="health-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#892D3F" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
+                        </div>
+                        <div class="health-info">
+                            <h3>Fréquence cardiaque</h3>
+                            <div class="health-value">72 <span>bpm</span></div>
+                            <div class="health-status normal">Normal</div>
+                        </div>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="health-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#892D3F" stroke-width="2">
+                                <path d="M3 3v18h18"></path>
+                                <path d="M18 17V9"></path>
+                                <path d="M13 17V5"></path>
+                                <path d="M8 17v-3"></path>
+                            </svg>
+                        </div>
+                        <div class="health-info">
+                            <h3>Pression artérielle</h3>
+                            <div class="health-value">120/80 <span>mmHg</span></div>
+                            <div class="health-status normal">Normal</div>
+                        </div>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="health-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#892D3F" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                        </div>
+                        <div class="health-info">
+                            <h3>Glycémie</h3>
+                            <div class="health-value">95 <span>mg/dL</span></div>
+                            <div class="health-status normal">Normal</div>
+                        </div>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="health-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#892D3F" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            </svg>
+                        </div>
+                        <div class="health-info">
+                            <h3>Oxygénation</h3>
+                            <div class="health-value">98 <span>%</span></div>
+                            <div class="health-status normal">Normal</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+    <!-- ============================================ -->
+<!-- WIDGET CHATBOT CONSEILS SANTÉ IA -->
+<!-- ============================================ -->
+
+    <button class="chat-widget-button" id="chatWidgetBtn" type="button" onclick="toggleChatWidget()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="chat-badge-widget" id="chatBadgeWidget">AI</span>
+    </button>
+
+    <div class="chat-popup-widget" id="chatPopupWidget" aria-hidden="true">
+    <div class="chat-popup-header">
+        <div class="chat-header-info">
+        <div class="chat-avatar">🩺</div>
+        <div class="chat-header-text">
+            <h3>Assistant Santé IA</h3>
+            <p>En ligne • Vitalia+</p>
+        </div>
+        </div>
+        <button class="chat-close-btn" type="button" onclick="toggleChatWidget()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        </button>
+    </div>
+
+    <div class="premium-indicator" id="premiumIndicatorWidget">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+        </svg>
+        Fonctionnalité Premium
+    </div>
+
+    <div class="chat-messages-container" id="chatMessagesWidget">
+        <div class="chat-message-widget assistant">
+        <div class="chat-message-avatar">🩺</div>
+        <div class="chat-message-content">
+            Bonjour ! Je suis votre assistant santé IA. Comment puis-je vous aider aujourd'hui ?
+        </div>
+        </div>
+
+        <div class="quick-suggestions-widget" id="quickSuggestionsWidget">
+        <button class="suggestion-btn" type="button" onclick="sendSuggestionWidget('Comment améliorer mon sommeil ?')">😴 Améliorer mon sommeil</button>
+        <button class="suggestion-btn" type="button" onclick="sendSuggestionWidget('Exercices pour rester en forme ?')">💪 Programme d'exercices</button>
+        <button class="suggestion-btn" type="button" onclick="sendSuggestionWidget('Plan nutritionnel équilibré ?')">🥗 Nutrition équilibrée</button>
+        <button class="suggestion-btn" type="button" onclick="sendSuggestionWidget('Comment gérer mon stress ?')">🧘 Gestion du stress</button>
+        </div>
+
+        <div class="chat-message-widget assistant">
+        <div class="chat-message-avatar">🩺</div>
+        <div class="typing-indicator-widget" id="typingIndicatorWidget">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+        </div>
+    </div>
+
+    <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+        <input
+            type="text"
+            class="chat-input-widget"
+            id="chatInputWidget"
+            placeholder="Posez votre question..."
+            onkeydown="handleKeyPressWidget(event)"
+            autocomplete="off"
+        >
+        <button class="chat-send-btn" id="sendBtnWidget" type="button" onclick="sendMessageWidget()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+        </div>
+    </div>
+    </div>
+
+    <script src="../js/chat_widget.js"></script>
+    <script src="../js/dashboard_patient.js"></script>
+    <script src="../js/header_functions.js"></script>
+</body>
+</html>
